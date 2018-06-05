@@ -2,18 +2,19 @@ import { isUndefined } from './is';
 
 const noop = () => {};
 
-const get = (obj, path, default) => {
-    const keys = path.split('.');
+const get = (obj, path, init) => {
+    const keys = path.replace(/\[/g, '.').replace(']', '').split('.');
     let res = obj;
     // 一个可以提前跳出的forEach
     keys.every(key => {
-        if (isUndefined(res.key)) {
-            res = default || false;
+        if (isUndefined(res[key])) {
+            res = init || false;
             return false;
         }
-        res = res.key;
+        res = res[key];
         return true;
     });
+    console.warn(res)
     return res;
 }
 
@@ -31,6 +32,7 @@ const commonJS = (require, exports, module, code) => {
 }
 
 export default {
+    get,
     noop,
     classNames,
     commonJS,
