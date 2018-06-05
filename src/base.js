@@ -18,6 +18,8 @@ const get = (obj, path, init) => {
     return res;
 }
 
+const repeat = n => Array(n).fill();
+
 const classNames = (...names) => {
     function convert(name) {
         return isObject(name) ?
@@ -34,6 +36,7 @@ const commonJS = (require, exports, module, code) => {
 export default {
     get,
     noop,
+    repeat,
     classNames,
     commonJS,
 }
